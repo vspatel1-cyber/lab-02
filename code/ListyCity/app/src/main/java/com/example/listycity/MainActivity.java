@@ -3,6 +3,7 @@ package com.example.listycity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,10 +21,16 @@ import java.util.Arrays;
 public class MainActivity extends AppCompatActivity{
 
 
-    private Button add_button;
-    private Button delete_button;
+    Boolean city_picked = false;
 
-    private EditText new_city;
+    int picked_city_pos = 0;
+
+    private AdapterView.OnItemClickListener selected_city_data = (parent, v, pos, id) -> {
+        picked_city_pos = pos;
+        city_picked = true;
+
+        findViewById(R.id.delete_city).setEnabled(city_picked);
+    };
 
 
 
@@ -38,11 +45,7 @@ public class MainActivity extends AppCompatActivity{
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        add_button = findViewById(R.id.add_city);
-
-        delete_button = findViewById(R.id.delete_city);
-
-
+        findViewById(R.id.delete_city).setEnabled(city_picked);
 
 
         cityList = findViewById(R.id.city_list);
@@ -56,23 +59,7 @@ public class MainActivity extends AppCompatActivity{
 
         cityList.setAdapter(cityAdapter);
 
-        add_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-
-                if (v.getId() == R.id.add_city) {
-                    String new_city_text = new_city.getText().toString().trim();
-
-                    if (!new_city_text.isEmpty()) {
-                        dataList.add(new_city_text);
-                        cityAdapter.notifyDataSetChanged();
-                        new_city.setText("");
-                    }
-                }
-
-            }
-
-        });
+        cityList.setOnItemClickListener(selected_city_data);
 
 
 
@@ -85,6 +72,27 @@ public class MainActivity extends AppCompatActivity{
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    public void add_city(View v) {
+        EditText text_input = findViewById(R.id.add_city_name);
+        String text_city = text_input.getText().toString();
+
+        if (!text_city.matches("")) {
+            text_input.getText().clear();
+            dataList.add(text_city);
+            cityAdapter.notifyDataSetChanged();
+        }
+
+
+    }
+
+    public void delete_city_b(View v) {
+        city_picked = false;
+
+        findViewById(R.id.delete_city).setEnabled(city_picked);
+        dataList.remove(picked_city_pos);
+        cityAdapter.notifyDataSetChanged();
     }
 
 

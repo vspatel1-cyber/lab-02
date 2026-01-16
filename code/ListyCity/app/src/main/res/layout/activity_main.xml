@@ -13,31 +13,46 @@
         android:layout_height="644dp"
         tools:layout_editor_absoluteX="34dp"
         tools:layout_editor_absoluteY="83dp"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"/>
 
-    </ListView>
 
     <Button
         android:id="@+id/add_city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="add_city"
         android:text="@string/add_city"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        tools:layout_editor_absoluteX="58dp"
-        tools:layout_editor_absoluteY="16dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/add_city_name"
+        app:layout_constraintStart_toEndOf="@+id/add_city_name"
+        app:layout_constraintTop_toTopOf="@+id/add_city_name" />
 
-    </Button>
+    <EditText
+        android:id="@+id/add_city_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/enter_city"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
 
     <Button
         android:id="@+id/delete_city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="32dp"
+        android:onClick="delete_city_b"
         android:text="@string/delete_city"
+        app:layout_constraintBottom_toTopOf="@+id/city_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteX="229dp"
-        tools:layout_editor_absoluteY="16dp">
+        app:layout_constraintVertical_bias="0.0">
 
     </Button>
 
